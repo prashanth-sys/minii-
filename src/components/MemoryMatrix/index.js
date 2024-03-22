@@ -1,10 +1,7 @@
 import {Component} from 'react'
-
 import {BiArrowBack} from 'react-icons/bi'
-
 import {Link} from 'react-router-dom'
 import {Line} from 'rc-progress'
-
 import RulesModal from '../RulesModel'
 
 import './index.css'
@@ -82,7 +79,7 @@ class MemoryMatrix extends Component {
       console.log('not matched')
 
       this.setState(
-        {clickedIndex: null, clickedIndices: [], results: false},
+        {clickedIndex: null, clickedIndices: []},
 
         () => {
           setTimeout(() => {
@@ -111,7 +108,7 @@ class MemoryMatrix extends Component {
       clickedIndex: null,
     }))
 
-    if (level === 15) {
+    if (level === 15 || level === 10 || level === 9) {
       this.setState({results: false})
     }
   }
@@ -123,15 +120,11 @@ class MemoryMatrix extends Component {
   render() {
     const {
       highlightedIndices,
-
       clickedIndex,
-
       isModelOpen,
-
       gridSize,
       progressPercentage,
       level,
-
       results,
     } = this.state
 
@@ -175,31 +168,20 @@ class MemoryMatrix extends Component {
 
             <div className="cells-card">
               <div className="game-container">
-                {Array.from({length: gridSize * gridSize}, (_, index) => {
-                  let classNames = 'button'
-                  let dataId = 'notHighlighted'
-
-                  if (highlightedIndices.includes(index + 1)) {
-                    classNames += ' highlight'
-                    dataId += 'highlight'
-                  } else if (clickedIndex === index) {
-                    classNames += ' clicked'
-                  } else if (clickedIndex !== index) {
-                    classNames += ' not-found'
-                  }
-
-                  return (
-                    <button
-                      key={index}
-                      type="button"
-                      className={classNames}
-                      onClick={() => this.onClickCell(index)}
-                      data-testid={dataId}
-                    >
-                      {_}
-                    </button>
-                  )
-                })}
+                {Array.from({length: gridSize * gridSize}, (_, index) => (
+                  <button
+                    type="button"
+                    className={`button ${
+                      highlightedIndices.includes(index + 1) ? 'highlight' : ''
+                    } ${clickedIndex === index ? 'clicked' : ''} ${
+                      clickedIndex !== index ? 'not-found' : ''
+                    }`}
+                    onClick={() => this.onClickCell(index)}
+                    data-testid={`cell-${index}`}
+                  >
+                    {_}
+                  </button>
+                ))}
               </div>
             </div>
           </div>
