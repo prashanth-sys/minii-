@@ -46,6 +46,7 @@
 
 .game-container {
   display: flex;
+
   width: 458px;
   height: 458px;
   flex-wrap: wrap;
@@ -56,10 +57,9 @@
 
 .button {
   width: 100px;
+  height: 100px;
 
   margin: 5px;
-
-  height: 100px;
 
   background-color: #cbd5e1;
 

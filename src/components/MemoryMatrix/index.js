@@ -170,9 +170,11 @@ class MemoryMatrix extends Component {
               <div className="game-container">
                 {Array.from({length: gridSize * gridSize}, (_, index) => {
                   let classNames = 'button'
+                  let dataId = 'notHighlighted'
 
                   if (highlightedIndices.includes(index + 1)) {
                     classNames += ' highlight'
+                    dataId += 'highlighted'
                   } else if (clickedIndex === index) {
                     classNames += ' clicked'
                   } else if (clickedIndex !== index) {
@@ -185,7 +187,7 @@ class MemoryMatrix extends Component {
                       type="button"
                       className={classNames}
                       onClick={() => this.onClickCell(index)}
-                      data-testid="highlighted"
+                      data-testid={dataId}
                     >
                       {_}
                     </button>
