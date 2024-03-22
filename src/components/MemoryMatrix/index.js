@@ -41,7 +41,7 @@ class MemoryMatrix extends Component {
 
     setTimeout(() => {
       this.setState({highlightedIndices: []})
-    }, 6000)
+    }, 3000)
 
     this.setState({highlightedIndices: slicedArray})
 
@@ -168,20 +168,29 @@ class MemoryMatrix extends Component {
 
             <div className="cells-card">
               <div className="game-container">
-                {Array.from({length: gridSize * gridSize}, (_, index) => (
-                  <button
-                    type="button"
-                    className={`button ${
-                      highlightedIndices.includes(index + 1) ? 'highlight' : ''
-                    } ${clickedIndex === index ? 'clicked' : ''} ${
-                      clickedIndex !== index ? 'not-found' : ''
-                    }`}
-                    onClick={() => this.onClickCell(index)}
-                    data-testid={`cell-${index}`}
-                  >
-                    {_}
-                  </button>
-                ))}
+                {Array.from({length: gridSize * gridSize}, (_, index) => {
+                  let classNames = 'button'
+
+                  if (highlightedIndices.includes(index + 1)) {
+                    classNames += ' highlight'
+                  } else if (clickedIndex === index) {
+                    classNames += ' clicked'
+                  } else if (clickedIndex !== index) {
+                    classNames += ' not-found'
+                  }
+
+                  return (
+                    <button
+                      key={index}
+                      type="button"
+                      className={classNames}
+                      onClick={() => this.onClickCell(index)}
+                      data-testid="highlighted"
+                    >
+                      {_}
+                    </button>
+                  )
+                })}
               </div>
             </div>
           </div>
